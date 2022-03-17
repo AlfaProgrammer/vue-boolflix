@@ -5,9 +5,12 @@
         <ul class="film-wrapper">
             <h3>Movies</h3>
              <li v-for="el in moviesList" :key="el.id">
+                 <figure class="img-wrapper">
+                     <img :src="thumbnailUrl+thumbnailDimention.medium+checkBackDrop(el.backdrop_path)" alt="">
+                 </figure>
                  <p>{{el.title}}</p>
                  <p>{{el.original_title}}</p>
-                 <p>{{el.original_language}}</p>
+                 <!-- <p>{{el.original_language}}</p> -->
                  <p>{{el.vote_average}}</p>
                  <p>{{innerFlag(el.original_language)}}</p>
              </li>
@@ -16,9 +19,12 @@
         <ul class="series-wrapper">
             <h3>Series</h3>
              <li v-for="el in seriesList" :key="el.id">
+                  <figure class="img-wrapper">
+                     <img :src="thumbnailUrl+thumbnailDimention.medium+checkBackDrop(el.backdrop_path)" alt="">
+                 </figure>
                  <p>{{el.name}}</p>
                  <p>{{el.original_name}}</p>
-                 <p>{{el.original_language}}</p>
+                 <!-- <p>{{el.original_language}}</p> -->
                  <p>{{el.vote_average}}</p>
                  <p>{{innerFlag(el.original_language)}}</p>
              </li>
@@ -36,6 +42,13 @@ export default {
     data(){
         return{
             serverUrl: 'https://api.themoviedb.org/3',
+            thumbnailUrl:'https://image.tmdb.org/t/p/',
+            thumbnailDimention:{
+                small: "w300",
+                medium:"w780",
+                large:"w1280",
+                original:"original"
+            },
             myKey: '720317410d2e858d6cb80c13e2f70aca',
             getMovies:'/search/movie',
             getSeries:'/search/tv',
@@ -48,6 +61,10 @@ export default {
     },
     methods:{
 
+        checkBackDrop( backDropPath ){
+           return backDropPath ? backDropPath : '/qD7QAWEi5mUPyrhwWHoh9qfOliG.jpg'
+        },
+
         //inserimento delle bandierine
         innerFlag( countryUnicode ){
             if( countryUnicode === 'en'){
@@ -56,7 +73,7 @@ export default {
             return getUnicodeFlagIcon( countryUnicode.toUpperCase() )
         },     
 
-        // chiamata al server
+        // chiamate al server
         serverCall( filter ){
             axios.get(`${this.serverUrl}${this.getMovies}`,{
                 params: {
@@ -111,12 +128,22 @@ export default {
             
             h3{
                 grid-column: 1 / -1;
-                background-color: lightslategrey;
                 color: white;
             }
 
             li{
                 border: 2px solid red;
+                // width: max-content;
+                figure{
+                    width: 100%;
+                    aspect-ratio: 9/16;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
                 p{
                     margin-bottom: 5px;
                 }
