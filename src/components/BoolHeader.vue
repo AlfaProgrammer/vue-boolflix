@@ -1,7 +1,7 @@
 <template>
     <header>
         <div class="logo">Qui logo</div>
-        <input type="search" v-model="filter" placeholder="diocane" @keyup.enter="changheFilter">
+        <input type="search" v-model="filter" placeholder="inser text" @keyup.enter="changheFilter">
     </header>
 </template>
 
