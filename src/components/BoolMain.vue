@@ -6,7 +6,7 @@
             <h3>Movies</h3>
              <li v-for="el in moviesList" :key="el.id">
                  <figure class="img-wrapper">
-                     <img :src="thumbnailUrl+thumbnailDimention.medium+checkBackDrop(el.backdrop_path)" alt="">
+                     <img :src="thumbnailUrl+thumbnailPosterSize.l+checkBackDrop(el.poster_path)" alt="">
                  </figure>
                  <p>{{el.title}}</p>
                  <p>{{el.original_title}}</p>
@@ -24,13 +24,17 @@
             <h3>Series</h3>
              <li v-for="el in seriesList" :key="el.id">
                   <figure class="img-wrapper">
-                     <img :src="thumbnailUrl+thumbnailDimention.medium+checkBackDrop(el.backdrop_path)" alt="">
+                     <img :src="thumbnailUrl+thumbnailPosterSize.l+checkBackDrop(el.poster_path)" alt="">
                  </figure>
                  <p>{{el.name}}</p>
                  <p>{{el.original_name}}</p>
                  <!-- <p>{{el.original_language}}</p> -->
                  <p>{{el.vote_average}}</p>
-                 <p>{{innerFlag(el.original_language)}}</p>
+                 <p>{{innerFlag(el.original_language)}}
+                     <span v-for="num in 5" :key="num"> 
+                         <i :class="[num <= movieVote(el.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star']"></i> 
+                    </span>
+                 </p>
              </li>
         </ul>
     </main>
@@ -47,10 +51,13 @@ export default {
         return{
             serverUrl: 'https://api.themoviedb.org/3',
             thumbnailUrl:'https://image.tmdb.org/t/p/',
-            thumbnailDimention:{
-                small: "w300",
-                medium:"w780",
-                large:"w1280",
+            thumbnailPosterSize:{
+                xs:"w92",
+                s:"w154",
+                m:"w185",
+                l:"w342",
+                xl:"w500",
+                xxl:"w780",
                 original:"original"
             },
             myKey: '720317410d2e858d6cb80c13e2f70aca',
@@ -117,7 +124,7 @@ export default {
 
 <style lang="scss" scoped>
     main{
-        background-color: cadetblue;
+        background-color: #141414;
         height: 100vh;
         overflow-y: auto;
 
@@ -131,7 +138,7 @@ export default {
             padding-inline: 20px;
             margin: 0 auto;
             margin-bottom: 20px;
-            background-color: salmon;
+            // background-color: #141414;
             
             h3{
                 grid-column: 1 / -1;
@@ -139,7 +146,8 @@ export default {
             }
 
             li{
-                border: 2px solid red;
+                // border: 2px solid red;
+                color: white;
                 // width: max-content;
                 figure{
                     width: 100%;

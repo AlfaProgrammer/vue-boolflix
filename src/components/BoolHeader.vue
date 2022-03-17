@@ -1,6 +1,8 @@
 <template>
     <header>
-        <div class="logo">Qui logo</div>
+        <figure class="logo">
+            <img :src="netflixLogo" alt="">
+        </figure>
         <input type="search" v-model="filter" placeholder="inser text" @keyup.enter="changheFilter">
     </header>
 </template>
@@ -13,6 +15,7 @@ export default {
     data(){
         return {
             filter: '',
+            netflixLogo: require('../assets/netflix-logo.png')
         }
     },
     methods:{
@@ -29,8 +32,17 @@ export default {
         align-items: center;
         justify-content: space-between;
         padding: 10px 20px;
-        background-color: salmon;
+        background-color: #141414;
         margin-bottom: 50px;
+
+        figure{
+            img{
+                width: 100px;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
     }
 </style>>
 
