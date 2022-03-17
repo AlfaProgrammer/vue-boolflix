@@ -11,7 +11,11 @@
                  <p>{{el.title}}</p>
                  <p>{{el.original_title}}</p>
                  <!-- <p>{{el.original_language}}</p> -->
-                 <p>{{el.vote_average}}</p>
+                 <p>{{movieVote(el.vote_average)}} 
+                     <span v-for="num in 5" :key="num"> 
+                         <i :class="[num <= movieVote(el.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star']"></i> 
+                    </span>
+                 </p>
                  <p>{{innerFlag(el.original_language)}}</p>
              </li>
         </ul>
@@ -60,6 +64,9 @@ export default {
         BoolHeader
     },
     methods:{
+        movieVote( originalVote ){
+           return Math.ceil(originalVote / 2)
+        },
 
         checkBackDrop( backDropPath ){
            return backDropPath ? backDropPath : '/qD7QAWEi5mUPyrhwWHoh9qfOliG.jpg'
